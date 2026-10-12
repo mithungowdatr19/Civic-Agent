@@ -1,0 +1,30 @@
+{
+  "pothole": {
+    "category": "Infrastructure",
+    "default_department": "Roads & Public Works"
+  },
+  "garbage": {
+    "category": "Sanitation",
+    "default_department": "Solid Waste Management"
+  },
+  "streetlight": {
+    "category": "Electrical Infrastructure",
+    "default_department": "Street Lighting"
+  },
+  "water leakage": {
+    "category": "Water",
+    "default_department": "Water Supply"
+  },
+  "drainage": {
+    "category": "Drainage",
+    "default_department": "Storm Water / Drainage"
+  },
+  "traffic signal": {
+    "category": "Traffic Infrastructure",
+    "default_department": "Traffic / Signals"
+  },
+  "fallen tree": {
+    "category": "Public Safety",
+    "default_department": "Parks / Disaster Response"
+  }
+}

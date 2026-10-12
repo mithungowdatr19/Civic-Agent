@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CivicAgent — Humanoid Civic Intelligence Platform</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ── SIDEBAR (Tone-matched border only) ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <b>CivicAgent</b>
+        <small>Municipal Intelligence</small>
+      </div>
+    </div>
+
+    <nav>
+      <a class="nav-item active" data-page="overview" onclick="showPage('overview')">
+        <span class="nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </span>Overview
+      </a>
+      <a class="nav-item" data-page="report" onclick="showPage('report')">
+        <span class="nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </span>Report Issue
+      </a>
+      <a class="nav-item" data-page="network" onclick="showPage('network')">
+        <span class="nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><path d="M12 8v3M8.5 17l-2.5-2M15.5 17l2.5-2"/></svg>
+        </span>Agent Pipeline
+      </a>
+      <a class="nav-item" data-page="cases" onclick="showPage('cases')">
+        <span class="nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </span>Case Registry
+      </a>
+      <a class="nav-item" data-page="analytics" onclick="showPage('analytics')">
+        <span class="nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </span>Analytics
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="ai-status-badge" id="aiBadge">
+        <span class="status-dot"></span>
+        <span id="aiStatusText">System Active</span>
+      </div>
+      <div class="sys-info">
+        <span>Grievance Desk</span>
+        <span class="version">v3.0</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MOBILE TOPBAR ── -->
+  <div class="mobile-topbar">
+    <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle navigation">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="mobile-brand">CivicAgent</div>
+    <div class="mobile-status" id="mobileStatus">ACTIVE</div>
+  </div>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="main-content">
+
+    <!-- ══ PAGE: OVERVIEW ══ -->
+    <div class="page active" id="page-overview">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">MUNICIPAL GRIEVANCE RESOLUTION</span>
+          <h1>Civic Intelligence Command</h1>
+          <p class="page-sub">Autonomous multi-agent investigation, statutory prioritization, and formal grievance routing for urban civic challenges.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-primary" onclick="showPage('report')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            File New Grievance
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-row" id="statsRow">
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
+          <div><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total Logged Cases</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div><div class="stat-value" id="statCritical">0</div><div class="stat-label">Critical Hazards</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
+          <div><div class="stat-value" id="statAvgScore">—</div><div class="stat-label">Mean Priority Score</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div>
+          <div><div class="stat-value" id="statAiMode">ACTIVE</div><div class="stat-label">Engine Status</div></div>
+        </div>
+      </div>
+
+      <!-- Hero Workflow + Side Panels -->
+      <div class="overview-grid">
+        <div class="hero-card">
+          <div class="hero-content">
+            <div class="hero-badge">STRUCTURED CIVIC LIFECYCLE</div>
+            <h2>Citizen reports a problem.<br>Agents resolve the administrative complexity.</h2>
+            <p>CivicAgent deploys six specialized agents to inspect physical evidence, identify jurisdictional authorities, audit public safety risk, deliberate priority, and produce ready-to-file administrative complaints in seconds.</p>
+            <button class="btn-primary btn-lg" onclick="showPage('report')">
+              Launch Grievance Intake
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg>
+            </button>
+          </div>
+          <!-- Humanoid Workflow visualization instead of cheesy orbit -->
+          <div class="hero-visual">
+            <div class="flow-step-pill">
+              <span class="flow-step-num">1</span>
+              <span class="flow-step-title">Evidence &amp; Defect Audit</span>
+            </div>
+            <div class="flow-step-pill">
+              <span class="flow-step-num">2</span>
+              <span class="flow-step-title">Ward Jurisdiction Mapping</span>
+            </div>
+            <div class="flow-step-pill">
+              <span class="flow-step-num">3</span>
+              <span class="flow-step-title">Public Safety Risk Assessment</span>
+            </div>
+            <div class="flow-step-pill">
+              <span class="flow-step-num">4</span>
+              <span class="flow-step-title">Multi-Stakeholder Consensus</span>
+            </div>
+            <div class="flow-step-pill">
+              <span class="flow-step-num">5</span>
+              <span class="flow-step-title">Statutory Priority &amp; SLA</span>
+            </div>
+            <div class="flow-step-pill">
+              <span class="flow-step-num">6</span>
+              <span class="flow-step-title">Formal Grievance Dispatch</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-panels">
+          <!-- Recent Cases -->
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Recent Grievance Cases</h3>
+              <a onclick="showPage('cases')" class="panel-link">View all →</a>
+            </div>
+            <div id="recentCases">
+              <div class="empty-state-sm">No recorded cases. File the first grievance.</div>
+            </div>
+          </div>
+
+          <!-- Agent Pipeline Overview -->
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Investigation Pipeline</h3>
+              <span class="badge-green" id="networkBadge">STANDBY</span>
+            </div>
+            <div id="agentNetworkOverview"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: REPORT ISSUE ══ -->
+    <div class="page" id="page-report">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">CITIZEN GRIEVANCE INTAKE</span>
+          <h1>File New Civic Report</h1>
+          <p class="page-sub">Provide defect details and photographic evidence. The specialized agents will conduct an immediate administrative analysis.</p>
+        </div>
+      </div>
+
+      <div class="report-layout">
+        <!-- Form Panel -->
+        <div class="panel report-panel">
+          <div class="panel-head">
+            <h3>Defect &amp; Location Details</h3>
+            <span class="badge-muted">6 SPECIALIZED AGENTS</span>
+          </div>
+          <form id="reportForm" autocomplete="off">
+            <div class="form-group">
+              <label>Issue Description <span class="required">*</span></label>
+              <textarea id="description" required rows="4" placeholder="Detail the civic defect clearly. E.g., Dangerous large pothole filled with stagnant rainwater near the bus shelter, causing heavy vehicles and two-wheelers to swerve into oncoming traffic..."></textarea>
+              <div class="char-count"><span id="charCount">0</span> characters</div>
+            </div>
+            <div class="form-group">
+              <label>Location &amp; Ward</label>
+              <div class="input-with-icon">
+                <svg class="input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <input id="location" type="text" placeholder="E.g., Kumbalgodu Main Junction, Bengaluru, Karnataka">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Photographic Evidence <span class="muted-label">(recommended)</span></label>
+              <div class="file-drop" id="fileDrop" onclick="document.getElementById('image').click()">
+                <input id="image" type="file" accept="image/*" style="display:none" onchange="handleFileSelect(this)">
+                <div id="fileDropContent">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+                  <p>Click to upload or drag &amp; drop photograph</p>
+                  <small>JPG, PNG, WEBP supported (up to 10MB)</small>
+                </div>
+              </div>
+              <div id="imagePreviewContainer" class="hidden">
+                <img id="imagePreview" class="img-preview" src="" alt="Evidence Preview">
+                <button type="button" class="btn-remove-img" onclick="removeImage()">✕ Remove photograph</button>
+              </div>
+            </div>
+            <button id="analyzeBtn" type="submit" class="btn-submit">
+              <span id="btnText">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21 5,3"/></svg>
+                Commence Multi-Agent Investigation
+              </span>
+              <div class="btn-spinner hidden" id="btnSpinner">
+                <span>Analyzing civic evidence...</span>
+              </div>
+            </button>
+          </form>
+        </div>
+
+        <!-- Live Pipeline Monitor & Guidance -->
+        <div class="agent-monitor">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Investigation Execution</h3>
+              <span id="pipelineStatus" class="badge-muted">STANDBY</span>
+            </div>
+            <div id="agentPipeline"></div>
+          </div>
+
+          <div class="panel tips-panel">
+            <div class="panel-head"><h3>Field Guidance</h3></div>
+            <ul class="tips-list">
+              <li><span>📍</span> Specific landmark references accelerate ward-level engineer assignment.</li>
+              <li><span>📸</span> Photos showing scale relative to the road or footpath enable precise severity auditing.</li>
+              <li><span>⚠️</span> Mentioning vulnerable road users (school students, hospital zones) elevates statutory priority.</li>
+              <li><span>⏱️</span> Verified emergency defects trigger automatic 24-hour statutory escalation paths.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Display Section -->
+      <div id="resultSection" class="hidden">
+        <div class="result-header">
+          <div class="result-header-left">
+            <span class="eyebrow">OFFICIAL CASE RECORD</span>
+            <h2 id="caseId">CA-00000000</h2>
+            <div class="result-meta">
+              <span id="resultTimestamp" class="meta-chip"></span>
+              <span id="resultAiMode" class="meta-chip">VERIFIED</span>
+            </div>
+          </div>
+          <div class="result-header-right">
+            <div class="priority-badge" id="priorityBadge">HIGH</div>
+            <button class="btn-secondary" onclick="exportCase()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export JSON
+            </button>
+          </div>
+        </div>
+
+        <!-- Metrics Overview -->
+        <div class="metrics-bar">
+          <div class="metric-item">
+            <div class="metric-label">Priority Score</div>
+            <div class="metric-value" id="metScore">—</div>
+            <div class="metric-bar-track"><div class="metric-bar-fill" id="scoreBar"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Assigned Authority</div>
+            <div class="metric-value sm" id="metAuthority">—</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Responsible Dept</div>
+            <div class="metric-value sm" id="metDepartment">—</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Confidence Index</div>
+            <div class="metric-value" id="metConfidence">—</div>
+            <div class="metric-bar-track"><div class="metric-bar-fill" id="confBar"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Statutory SLA</div>
+            <div class="metric-value sm" id="metSLA">—</div>
+          </div>
+        </div>
+
+        <!-- Result Tabs -->
+        <div class="result-tabs">
+          <button class="tab-btn active" onclick="switchTab('intelligence', this)">Evidence Analysis</button>
+          <button class="tab-btn" onclick="switchTab('debate', this)">Deliberation &amp; Consensus</button>
+          <button class="tab-btn" onclick="switchTab('action', this)">Action Schedule</button>
+          <button class="tab-btn" onclick="switchTab('complaint', this)">Formal Complaint</button>
+        </div>
+
+        <div id="tab-intelligence" class="tab-content active">
+          <div class="intel-grid" id="intelGrid"></div>
+        </div>
+        <div id="tab-debate" class="tab-content">
+          <div class="debate-cards" id="debateCards"></div>
+        </div>
+        <div id="tab-action" class="tab-content">
+          <div class="action-steps-view" id="actionSteps"></div>
+        </div>
+        <div id="tab-complaint" class="tab-content">
+          <div class="complaint-view" id="complaintView"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: AGENT PIPELINE ══ -->
+    <div class="page" id="page-network">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">COORDINATED ARCHITECTURE</span>
+          <h1>Multi-Agent Resolution Pipeline</h1>
+          <p class="page-sub">Six autonomous agents collaborating in sequence to transform unstructured citizen complaints into actionable municipal tickets.</p>
+        </div>
+      </div>
+
+      <div class="network-layout">
+        <div class="pipeline-diagram">
+          <div class="pipeline-step">
+            <div class="pip-node">VI</div>
+            <div class="pip-info">
+              <b>Vision &amp; Evidence Agent</b>
+              <p>Audits physical defect patterns, evaluates severity score (1–10), and extracts visual hazard signatures from descriptions and uploaded imagery.</p>
+              <div class="pip-tags"><span>Severity Scoring</span><span>Photometric Analysis</span><span>Hazard Identification</span></div>
+            </div>
+          </div>
+          <div class="pipeline-arrow">▼</div>
+          <div class="pipeline-step">
+            <div class="pip-node">RE</div>
+            <div class="pip-info">
+              <b>Research &amp; Jurisdiction Agent</b>
+              <p>Resolves geographic jurisdiction, maps the problem to the statutory municipal body (e.g. BBMP, PWD, Water Board), and identifies designated escalation officers.</p>
+              <div class="pip-tags"><span>Authority Mapping</span><span>Ward Demarcation</span><span>Administrative Routing</span></div>
+            </div>
+          </div>
+          <div class="pipeline-arrow">▼</div>
+          <div class="pipeline-step">
+            <div class="pip-node">SA</div>
+            <div class="pip-info">
+              <b>Safety &amp; Public Impact Agent</b>
+              <p>Quantifies risk exposure across vulnerable demographics (motorcyclists, school transit, pedestrians) and calculates public hazard urgency index.</p>
+              <div class="pip-tags"><span>Public Exposure Index</span><span>Accident Probability</span><span>Urgency Rating</span></div>
+            </div>
+          </div>
+          <div class="pipeline-arrow">▼</div>
+          <div class="pipeline-step">
+            <div class="pip-node">DB</div>
+            <div class="pip-info">
+              <b>Multi-Agent Deliberation Coordinator</b>
+              <p>Simulates adversarial debate between rapid temporary mitigation and fundamental structural engineering repair to establish a balanced municipal consensus.</p>
+              <div class="pip-tags"><span>Dialectical Reasoning</span><span>Consensus Formation</span><span>Conflict Resolution</span></div>
+            </div>
+          </div>
+          <div class="pipeline-arrow">▼</div>
+          <div class="pipeline-step">
+            <div class="pip-node">DE</div>
+            <div class="pip-info">
+              <b>Statutory Decision Agent</b>
+              <p>Fuses multi-agent findings into a final priority classification (CRITICAL, HIGH, MEDIUM, LOW), computes confidence index, and allocates statutory resolution SLA.</p>
+              <div class="pip-tags"><span>Statutory Priority</span><span>SLA Allocation</span><span>Evidence Synthesis</span></div>
+            </div>
+          </div>
+          <div class="pipeline-arrow">▼</div>
+          <div class="pipeline-step">
+            <div class="pip-node">AC</div>
+            <div class="pip-info">
+              <b>Action &amp; Dispatch Agent</b>
+              <p>Drafts formal municipal complaints addressed to the executive engineer, establishes field inspection checklists, and prepares citizen advisory updates.</p>
+              <div class="pip-tags"><span>Formal Grievance Filing</span><span>Field Checklist</span><span>Citizen Notification</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="network-right">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Agent Status Monitor</h3>
+              <span class="badge-green">ACTIVE</span>
+            </div>
+            <div id="liveAgentList"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Operational Engine</h3></div>
+            <div class="arch-mode-card">
+              <div class="arch-icon">🏛️</div>
+              <div>
+                <b id="archModeTitle">Civic Intelligence Engine</b>
+                <p id="archModeDesc">Autonomous multi-agent civic intelligence pipeline running with robust deterministic failover.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: CASE REGISTRY ══ -->
+    <div class="page" id="page-cases">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">ADMINISTRATIVE RECORDS</span>
+          <h1>Case Registry</h1>
+          <p class="page-sub">Comprehensive ledger of registered civic grievances, statutory priorities, and operational routing statuses.</p>
+        </div>
+        <div class="header-actions">
+          <div class="search-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="caseSearch" type="text" placeholder="Search by ID, location, defect..." oninput="filterCases(this.value)">
+          </div>
+          <div class="filter-tabs" id="priorityFilter">
+            <button class="filter-btn active" onclick="filterByPriority('ALL', this)">All</button>
+            <button class="filter-btn" onclick="filterByPriority('CRITICAL', this)">Critical</button>
+            <button class="filter-btn" onclick="filterByPriority('HIGH', this)">High</button>
+            <button class="filter-btn" onclick="filterByPriority('MEDIUM', this)">Medium</button>
+          </div>
+        </div>
+      </div>
+      <div id="casesGrid" class="cases-grid">
+        <div class="empty-state">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          <h3>No grievances logged</h3>
+          <p>Submit your first report to populate the registry.</p>
+          <button class="btn-primary" onclick="showPage('report')">File Grievance</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: ANALYTICS ══ -->
+    <div class="page" id="page-analytics">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">METRICS &amp; TRENDS</span>
+          <h1>Civic Analytics Dashboard</h1>
+          <p class="page-sub">Real-time statutory metrics, defect category distributions, and authority resolution workloads.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-secondary" onclick="loadAnalytics()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Refresh Data
+          </button>
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="panel analytics-panel">
+          <div class="panel-head"><h3>Priority Distribution</h3></div>
+          <div id="priorityChart" class="chart-area"></div>
+        </div>
+        <div class="panel analytics-panel">
+          <div class="panel-head"><h3>Defect Categories</h3></div>
+          <div id="categoryChart" class="chart-area"></div>
+        </div>
+        <div class="panel analytics-panel wide">
+          <div class="panel-head"><h3>Grievance Intake Timeline</h3></div>
+          <div id="timelineChart" class="chart-area tall"></div>
+        </div>
+        <div class="panel analytics-panel">
+          <div class="panel-head"><h3>Jurisdiction Workload</h3></div>
+          <div id="authorityChart" class="chart-area"></div>
+        </div>
+        <div class="panel analytics-panel">
+          <div class="panel-head"><h3>Public Safety Risk Index</h3></div>
+          <div id="riskChart" class="chart-area"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Case Detail Modal -->
+<div class="modal-overlay hidden" id="caseModal" onclick="closeCaseModal(event)">
+  <div class="modal" id="caseModalContent">
+    <div class="modal-header">
+      <div>
+        <span class="eyebrow">GRIEVANCE DOSSIER</span>
+        <h2 id="modalCaseId">CA-00000000</h2>
+      </div>
+      <button class="modal-close" onclick="closeCaseModal()" aria-label="Close dialog">✕</button>
+    </div>
+    <div id="modalBody" class="modal-body"></div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

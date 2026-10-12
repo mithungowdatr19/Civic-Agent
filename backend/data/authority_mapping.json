@@ -1,0 +1,30 @@
+{
+  "road": [
+    "Municipal Corporation / Local Civic Body",
+    "Roads & Public Works"
+  ],
+  "pothole": [
+    "Municipal Corporation / Local Civic Body",
+    "Roads & Public Works"
+  ],
+  "garbage": [
+    "Municipal Corporation / Local Civic Body",
+    "Solid Waste Management"
+  ],
+  "streetlight": [
+    "Municipal Corporation / Local Civic Body",
+    "Street Lighting"
+  ],
+  "water": [
+    "Water Supply Authority",
+    "Water Supply"
+  ],
+  "drainage": [
+    "Municipal Corporation / Local Civic Body",
+    "Storm Water / Drainage"
+  ],
+  "traffic": [
+    "Traffic / Municipal Authority",
+    "Traffic Infrastructure"
+  ]
+}
