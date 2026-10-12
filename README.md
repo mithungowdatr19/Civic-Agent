@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CivicAgent — Complete Multi-Agent Civic Intelligence
 
 CivicAgent is a Generative + Agentic AI architecture for autonomous civic issue analysis.
@@ -44,3 +45,6 @@ Then upload a road/pothole image and submit.
 ## Security
 
 Never commit `.env` or an API key to GitHub.
+=======
+# Civic-Agent
+>>>>>>> f18377cd98c1b4667fe68393585d5d3037f03bd7
